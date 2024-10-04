@@ -81,6 +81,7 @@ void Modifer_Resirvation()
             printf("%[^\n]", resirver[i].Statu);
             found = 1;
         }
+        
 
         int modifer;
         for (int i = 0; i < nbr_resrvation; i++)
@@ -101,6 +102,36 @@ void Modifer_Resirvation()
 
             printf("Entrer la Date :");
             scanf(" %[^\n]", resirver[i].Date);
+
+            for(int j=0 ; j<nbr_resrvation;j++){
+                int choix3;
+                
+        do{
+               printf("modifer votre statu\n");
+               scanf("%d" , choix3);
+                printf("1-reporte\n");
+                printf("2-Annulel\n");
+                printf("3-TRaite\n");
+                printf("________________________\n");
+
+        
+        switch(choix3){
+        
+            case 1 :{
+                strcpy(resirver[i].Statu ,"Reporter");
+                break;
+            }
+            case 2 :{
+                strcpy(resirver[i].Statu ,"Anulle");
+                break;
+            }
+            case 3 :{
+                strcpy(resirver[i].Statu ,"traite");
+                break;
+            }
+        }
+        }while(choix3<3);
+            }
         }
     }
 }
@@ -129,6 +160,9 @@ void Supprimer_Resirvation()
             printf("%[^\n]", resirver[i].Statu);
             found = 1;
         }
+         
+           printf("------------Moudifer Et supprimer--------------\n");
+         
         for (int j = 0; j < nbr_resrvation - 1; i++)
         {
             (resirver[j].ID, resirver[j + 1].ID);
@@ -261,6 +295,7 @@ int main()
                 case 1:
                 {
                     Modifer_Resirvation();
+                    
                     break;
                 }
                 case 2:
