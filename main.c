@@ -28,33 +28,33 @@ typedef struct
 
  Resirvation resirver[MAX_RESIRVATION] = {
 
-    {1, "Ahmed", "El Mansouri", "0601234567", 30, "Valide", "2024-09-12"},
-     {2, "Fatima", "Zahra", "0612345678", 25, "Valide", "2024-09-05"},
+    {1, "Ahmed", "boujaada", "0601234567", 30, "Valide", "2024-09-12"},
+     {2, "abdelkbair", "asrir", "0612345678", 25, "Valide", "2024-09-05"},
     {3, "Youssef", "Bouzid", "0623456789", 22, "Valide", "2024-09-14"},
-     {4, "Amina", "El Fassi", "0634567890", 28, "reporte", "2024-09-19"},
+     {4, "jawad", "El Fassi", "0634567890", 28, "reporte", "2024-09-19"},
     {5, "Omar", "Benali", "0645678901", 27, "Valide", "2024-09-08"},
-     {6, "Leila", "Amari", "0656789012", 32, "Valide", "2024-09-02"},
+     {6, "Hamza", "Amari", "0656789012", 32, "Valide", "2024-09-02"},
      {7, "Samir", "Bouchareb", "0667890123", 21, "Valide", "2024-09-10"},
-   {8, "Salma", "Ouardani", "0678901234", 26, "annule", "2024-09-11"},
+   {8, "Yassine", "Ouardani", "0678901234", 26, "annule", "2024-09-11"},
     {9, "Khalid", "El Idrissi", "0689012345", 29, "traite", "2024-09-22"},
-    {10, "Hana", "Jbari", "0690123456", 24, "Valide", "2024-09-17"}
+    {10, "Mohammed", "khalil", "0690123456", 24, "Valide", "2024-09-17"}
  };
 
  
 
-int nbr_resrvation = 10;
+int nbr_resirvation = 10;
 
 // AFFICHER
 void Afficher_Resirvation()
 {
-    if (nbr_resrvation == 0)
+    if (nbr_resirvation == 0)
     {
         printf("Pas de Resirvation!!!\n");
     }
     else
     {
         printf("=================RESIRVATION DETAILE ===================\n");
-        for (int i = 0; i < nbr_resrvation; i++)
+        for (int i = 0; i < nbr_resirvation; i++)
         {
             printf("Reference: %d\n", resirver[i].ID);
             printf("Nom : %s\n", resirver[i].Nom);
@@ -71,14 +71,14 @@ void Afficher_Resirvation()
 // AJOUTER
 void Ajout_resirvation()
 {
-    int count_ID = nbr_resrvation;
+    int count_ID = nbr_resirvation;
 
     int ajout;
 
     printf("entrer nombre de Resrvation : ");
     scanf("%d", &ajout);
 
-    for (int i = nbr_resrvation; i < nbr_resrvation + ajout; i++)
+    for (int i = nbr_resirvation; i < nbr_resirvation + ajout; i++)
     {
 
         getchar();
@@ -101,7 +101,7 @@ void Ajout_resirvation()
         strcpy(resirver[i].Statu, "Valide");
         printf("______________________________________\n");
     }
-    nbr_resrvation += ajout;
+    nbr_resirvation += ajout;
 }
 
 // MODIFER ET SUPPRIMER
@@ -115,7 +115,7 @@ void Modifer_Resirvation()
     scanf("%d", &recherch);
     int i;
 
-    for (i = 0; i < nbr_resrvation; i++)
+    for (i = 0; i < nbr_resirvation; i++)
     {
 
         if (resirver[i].ID == recherch)
@@ -160,6 +160,8 @@ void Modifer_Resirvation()
         printf("2-Anulle\n");
         printf("3-Reporte\n");
         printf("4-Traite\n");
+
+        printf("entrer chiox pour modifer statu:");
         scanf("%d", &choix3);
         switch (choix3)
         {
@@ -193,52 +195,58 @@ void Modifer_Resirvation()
 }
 
 // suppremer
-void Supprimer_Resirvation()
-{
-
+void Supprimer_Resirvation() {
     int recherch;
     int found = 0;
 
     printf("Entrer ID pour SUPPRIMER:");
     scanf("%d", &recherch);
 
-    // search to delet :
-    for (int i = 0; i < nbr_resrvation; i++)
-    {
-
-        if (recherch == resirver[i].ID)
-        {
-
-            printf("\n========================\n");
-            printf("%s\n", resirver[i].Nom);
-            printf("%s\n", resirver[i].Prenom);
-            printf("%d\n", resirver[i].Age);
-            printf("%s\n", resirver[i].Telephone);
-            printf("%s\n", resirver[i].Date);
-            printf("%s\n", resirver[i].Statu);
-            printf("\n========================\n");
+    for (int i = 0; i < nbr_resirvation; i++) {
+        if (recherch == resirver[i].ID) {
             found = 1;
-            break;
+
+            for (int j = i; j < nbr_resirvation - 1; j++) {
+                resirver[j] = resirver[j + 1];
+            }
+
+            nbr_resirvation--;  
+            printf("Resirvation est Supprime!\n");
+            break; 
         }
     }
 
-    if (found == 1)
-    {
-        for (int j = 0; j < nbr_resrvation - 1; j++)
-        {
-            resirver[j] = resirver[j + 1];
-        }
-
-        nbr_resrvation--;
-        printf("Resirvation est Supprimer!\n");
-    }
-    if (found != 1)
-    {
+    if (!found) {
         printf("ID pas utiliser\n");
-        return;
     }
 }
 
+void TriAlpha() {
+    for (int i = 0; i < nbr_resirvation - 1; i++) {
+        for (int j = 0; j < nbr_resirvation - i - 1; j++) {
+            if (strcasecmp(resirver[j].Nom,resirver[j + 1].Nom) > 0) {
+                Resirvation temp =resirver[j];
+               resirver[j] =resirver[j + 1];
+               resirver[j + 1] = temp;
+            }
+        }
+    }
+    Afficher_Resirvation();
+}
+
+
+void TriStatut() {
+    for (int i = 0; i < nbr_resirvation - 1; i++) {
+        for (int j = 0; j < nbr_resirvation - i - 1; j++) {
+            if (strcasecmp(resirver[j].Statu, resirver[j + 1].Statu) > 0) {
+                Resirvation temp = resirver[j];
+                resirver[j] = resirver[j + 1];
+                resirver[j + 1] = temp;
+            }
+        }
+    }
+    Afficher_Resirvation();
+}
 // RECHZRCHER
 void Rechercher_Resrvastion_ID()
 {
@@ -247,7 +255,7 @@ void Rechercher_Resrvastion_ID()
     printf("Entrer votre id  ");
     scanf("%d", &chrcher);
 
-    for (int i = 0; i < nbr_resrvation; i++)
+    for (int i = 0; i < nbr_resirvation; i++)
     {
         if (chrcher == resirver[i].ID)
         {
@@ -271,16 +279,19 @@ void Rechercher_Resrvastion_ID()
     }
 }
 
+
+    
+
 void Rechercher_Resrvastion_NOM()
 {
     char chercher[MAX_NOM_LENGTH];
     int found = 0;
     printf("Entrer voter Nom :");
-    scanf("%[^\n]", chercher);
+    scanf(" %[^\n]", chercher);
 
-    for (int i = 0; i < nbr_resrvation; i++)
+    for (int i = 0; i < nbr_resirvation; i++)
     {
-        if (strcmp(resirver[i].Nom, chercher) == 0)
+        if (strcasecmp(resirver[i].Nom, chercher) == 0)
         {
             printf("-----resirvation TRouver-----\n");
             printf("\n========================\n");
@@ -298,7 +309,7 @@ void Rechercher_Resrvastion_NOM()
     }
     if (found != 1)
     {
-        printf("No Reservation Trouver!!");
+        printf("No Reservation Trouver!!\n");
     }
 }
 
@@ -308,14 +319,14 @@ void StatisticMoyenage()
 {
 
     int somme = 0;
-    for (int i = 0; i < nbr_resrvation; i++)
+    for (int i = 0; i < nbr_resirvation; i++)
     {
         somme = somme + resirver[i].Age;
     }
 
     int moyen;
 
-    moyen = somme / nbr_resrvation;
+    moyen = somme / nbr_resirvation;
 
     printf("le moyen des age est :%d\n", moyen);
 }
@@ -324,17 +335,17 @@ void StatisticGeniration()
 {
     int Geniration1 = 0, Geniration2 = 0, Geniration3 = 0;
 
-    for (int i = 0; i < nbr_resrvation; i++)
+    for (int i = 0; i < nbr_resirvation; i++)
     {
-        if (resirver[i].Age <= 18)
+        if (resirver[i].Age >= 0 && resirver[i].Age <= 18)
         {
             Geniration1++;
         }
-        else if (resirver[i].Age > 18 && resirver[i].Age <= 35)
+        if (resirver[i].Age > 18 && resirver[i].Age <= 35)
         {
             Geniration2++;
         }
-        else if (resirver[i].Age > 35)
+        if (resirver[i].Age > 35)
         {
             Geniration3++;
         }
@@ -350,21 +361,21 @@ void StatisticStatus()
 
     int Valide = 0, Anulle = 0, Reporte = 0, Traite = 0;
 
-    for (int i = 0; i < nbr_resrvation; i++)
+    for (int i = 0; i < nbr_resirvation; i++)
     {
         if (strcasecmp(resirver[i].Statu, "Valide") == 0)
         {
             Valide++;
         }
-        else if (strcasecmp(resirver[i].Statu, "Anulle") == 0)
+         if (strcasecmp(resirver[i].Statu, "Annule") == 0)
         {
             Anulle++;
         }
-        else if (strcasecmp(resirver[i].Statu, "Reorte") == 0)
+         if (strcasecmp(resirver[i].Statu, "Reporte") == 0)
         {
             Reporte++;
         }
-        else if (strcasecmp(resirver[i].Statu, "Traite") == 0)
+         if (strcasecmp(resirver[i].Statu, "Traite") == 0)
         {
             Traite++;
         }
@@ -379,10 +390,11 @@ void StatisticStatus()
 void StatisticResrvation()
 {
     int choix_static;
+    do{ 
     printf("=======++STATISTIC DE RESIRVATION++=======\n");
-    printf("1-Moyen age des malade  \n");
-    printf("2-les Geniratino \n ");
-    printf("3- statu \n");
+    printf("1-Moyen age des malade\n");
+    printf("2-les Geniratino\n ");
+    printf("3-statu\n");
     printf("0-Ruteur a menu principal \n");
 
     printf("Entrer votre hcoix :  \n ", choix_static);
@@ -406,12 +418,12 @@ void StatisticResrvation()
             break;
         }
     }
+    }while(choix_static!=0);
 }
 
 
 
-int main()
-{
+int main(){
 
     int choix;
     do
@@ -420,8 +432,8 @@ int main()
         printf("//==============RESIRVATION DENTAIRES//=============\n");
         printf("1-Ajouter Un Resirvation\n");
         printf("2-Modifer ou Supprimer Une Resirvation\n");
-        printf("3-Tri des resrvastion");
-        printf("4-Afficher votre resirvation Details\n");
+        printf("3-Afficher votre resirvation Details\n");
+        printf("4-Tri des resrvastion\n");
         printf("5-Rechercher pour une  Resirvation\n");
         printf("6-Afficher les Statistic dentaires\n");
         printf("7-Quitter!\n");
@@ -430,7 +442,7 @@ int main()
         printf("_________________________________________\n");
 
         switch (choix)
-        {
+     {
 
             //////////////// AJOUTRE RESERVATION ////////////
         case 1:
@@ -474,8 +486,9 @@ int main()
                 }
                 }
                 break;
-            } while (choix1 < 3);
+            } while (choix1 != 3);
         }
+        break;
         //////////////   AFFICHER  /////////////
         case 3:
         {
@@ -486,9 +499,41 @@ int main()
         //////////////  TRI DE RESIRVATION //////////
         case 4:
         {
+            int choix_tri;
+         do{
+                printf("=========TRI DES RESIRVATION=======\n");
+                printf("1-tri par Nom \n");
+                printf("2-Tri par Statu \n");
+                printf("3-Routeur a menu Principal \n");
+                printf("_______________________\n");
 
-            break;
+                printf("entrer votre choix : \n");
+                scanf("%d", &choix_tri);
+                printf("_______________________\n");
+
+                switch(choix_tri){
+               case 1:{
+                system("cls");
+                TriAlpha();
+                break;
+               }
+               case 2:
+                {
+                    system("cls");
+                 TriStatut();
+                    break;
+                }
+                case 3:
+                {
+                    goto menu;
+                    break;
+                }
+           
+              
+               }
+            }while(choix_tri<3);
         }
+         break;
         ////////////////// RECHERCHER PAR NOM OU ID //////////////
         case 5:
         {
@@ -524,7 +569,7 @@ int main()
                     break;
                 }
                 }
-
+           break;
             } while (choix2 < 3);
             break;
 
@@ -538,7 +583,8 @@ int main()
         default:
             printf("choix ivalide");
         }
+     } while (choix < 7);
 
-    } while (choix < 7);
     return 0;
-}
+    } 
+
